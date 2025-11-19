@@ -1,0 +1,24 @@
+{
+  "name": "web_project_api_full",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jopila/web_project_api_full.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jopila/web_project_api_full/issues"
+  },
+  "homepage": "https://github.com/Jopila/web_project_api_full#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
