@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -9,7 +9,7 @@ const UNAUTHORIZED = 401;
 const NOT_FOUND = 404;
 
 const authError = () => {
-  const error = new Error('Email ou senha incorretos');
+  const error = new Error("Email ou senha incorretos");
   error.statusCode = UNAUTHORIZED;
   return error;
 };
@@ -23,7 +23,7 @@ const getUsers = (req, res, next) => {
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => {
-      const error = new Error('ID do usuário não encontrado');
+      const error = new Error("ID do usuário não encontrado");
       error.statusCode = NOT_FOUND;
       throw error;
     })
@@ -34,7 +34,7 @@ const getCurrentUser = (req, res, next) => {
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
     .orFail(() => {
-      const error = new Error('ID do usuário não encontrado');
+      const error = new Error("ID do usuário não encontrado");
       error.statusCode = NOT_FOUND;
       throw error;
     })
@@ -43,23 +43,21 @@ const getUserById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
+  const { email, password } = req.body;
 
-  bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    }))
+  bcrypt
+    .hash(password, 10)
+    .then((hash) =>
+      User.create({
+        email,
+        password: hash,
+      })
+    )
     .then((user) => res.status(201).json(user))
     .catch((err) => {
       if (err.code === 11000) {
         err.statusCode = 409;
-        err.message = 'Email já cadastrado';
+        err.message = "Email já cadastrado";
       }
 
       return next(err);
@@ -70,32 +68,31 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    const error = new Error('Email e senha são obrigatórios');
+    const error = new Error("Email e senha são obrigatórios");
     error.statusCode = BAD_REQUEST;
     return next(error);
   }
 
   return User.findOne({ email })
-    .select('+password')
+    .select("+password")
     .then((user) => {
       if (!user) {
         throw authError();
       }
 
-      return bcrypt.compare(password, user.password)
-        .then((matched) => {
-          if (!matched) {
-            throw authError();
-          }
+      return bcrypt.compare(password, user.password).then((matched) => {
+        if (!matched) {
+          throw authError();
+        }
 
-          const token = jwt.sign(
-            { _id: user._id },
-            NODE_ENV === 'production' && JWT_SECRET ? JWT_SECRET : 'dev-secret',
-            { expiresIn: '7d' },
-          );
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === "production" && JWT_SECRET ? JWT_SECRET : "dev-secret",
+          { expiresIn: "7d" }
+        );
 
-          return res.json({ token });
-        });
+        return res.json({ token });
+      });
     })
     .catch(next);
 };
@@ -106,10 +103,10 @@ const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true },
+    { new: true, runValidators: true }
   )
     .orFail(() => {
-      const error = new Error('ID do usuário não encontrado');
+      const error = new Error("ID do usuário não encontrado");
       error.statusCode = NOT_FOUND;
       throw error;
     })
@@ -123,10 +120,10 @@ const updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { new: true, runValidators: true },
+    { new: true, runValidators: true }
   )
     .orFail(() => {
-      const error = new Error('ID do usuário não encontrado');
+      const error = new Error("ID do usuário não encontrado");
       error.statusCode = NOT_FOUND;
       throw error;
     })

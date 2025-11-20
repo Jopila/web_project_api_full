@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { errors } = require("celebrate");
+const cors = require("cors");
 const { createUser, login } = require("./controllers/users");
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
@@ -13,8 +14,16 @@ require("dotenv").config();
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
+app.options("*", cors());
 app.use(express.json());
 app.use(requestLogger);
+
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("O servidor travará agora");
+  }, 0);
+});
 
 app.post("/signin", validateSignin, login);
 app.post("/signup", validateSignup, createUser);

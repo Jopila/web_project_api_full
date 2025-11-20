@@ -1,4 +1,4 @@
-const AUTH_BASE_URL = "http://localhost:3000";
+const AUTH_BASE_URL = "https://web-project-api-full-loyl.onrender.com";
 const TOKEN_STORAGE_KEY = "around.jwt";
 
 const defaultHeaders = {
