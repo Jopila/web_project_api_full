@@ -1,0 +1,190 @@
+/* =====================================================================
+   Block: Profile
+========================================================================*/
+
+/* ------------------------- Container -------------------------------- */
+.profile {
+  margin-top: 40px; /* 40 px depois da linha do header */
+  display: flex;
+  align-items: center;
+  gap: 18px; /* distância padrão entre itens */
+  flex-wrap: wrap; /* quebra em telas estreitas */
+}
+
+/* ------------------------- Avatar ----------------------------------- */
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ------------------------- Info (nome + about) ---------------------- */
+.profile__info {
+  flex: 0 1 auto; /* apenas o espaço necessário */
+  min-width: 200px;
+  position: relative; /* necessário para posicionar o botão dentro */
+}
+
+.profile__info-header {
+  display: flex;
+  align-items: baseline; /* usa o baseline do texto */
+  gap: 18px;
+}
+
+/* ========== NOME ============================================= */
+.profile__name {
+  margin: 0;
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  color: var(--color-text);
+
+  /* --- ALTERAÇÕES ------------------------------------------- */
+  flex: 1 1 auto; /* ocupa todo o espaço que sobrar antes do botão */
+  min-width: 0; /* permite encolher quando a viewport ficar menor */
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== DESCRIÇÃO (“about”) ============================== */
+.profile__about {
+  margin: 7px 0 0;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--color-text);
+
+  /* mesmo corte para textos muito longos */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ------------------------- Botão editar (lápis) --------------------- */
+.profile__edit-button {
+  width: 24px;
+  height: 24px;
+  /* sem position absolute nem margin-top */
+  background: transparent url("../images/icon-edit.png") center/10px 10px
+    no-repeat;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}
+
+/* ------------------------- Botão adicionar (+) ---------------------- */
+.profile__add-button {
+  width: 150px;
+  height: 50px;
+  margin-left: auto; /* empurra só o “+” para a borda direita */
+  background: transparent url("../images/icon-plus.png") center/22px 22px
+    no-repeat;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+/* Wrapper é o item do flex (onde fica o “gap”) */
+.profile__avatar-wrap {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  line-height: 0;
+  margin-right: 12px; /* 18 (gap) + 12 = 30px total até as infos */
+}
+
+/* Botão-overlay (hover): fundo preto 80% + ícone centralizado */
+.profile__avatar-edit-button {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  border-radius: 50%;
+  /* Figma: Rectangle 1 (preto 80%) + “image” (ícone) */
+  background: rgba(0, 0, 0, 0.8) /* overlay forte */
+    url("../images/icon-edit-avatar.png") center/26px 26px no-repeat; /* ajuste 26–32px se quiser */
+  opacity: 0; /* aparece só no hover/foco */
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+/* Exibe no hover e no foco de teclado (acessível) */
+.profile__avatar-wrap:hover .profile__avatar-edit-button,
+.profile__avatar-edit-button:focus-visible {
+  opacity: 1;
+  outline-offset: 2px;
+}
+
+/* Click feedback */
+.profile__avatar-edit-button:active {
+  opacity: 0.9;
+}
+
+/* -------------------------------------------------------------------
+   Responsividade do Profile block
+   ------------------------------------------------------------------- */
+
+/* ----- Tablet / small-desktop (≤1279px) -------------- */
+/* (nenhum ajuste específico para “profile” nesta faixa, pois
+   apenas max-width do wrapper foi movido para header.css e footer.css) */
+
+/* ----- Mobile / landscape (≤500px) -------------------- */
+@media (max-width: 500px) {
+  /* a) container “.profile” empilha os itens e centraliza */
+  .profile {
+    flex-direction: column;
+    align-items: center; /* centraliza horizontalmente */
+    text-align: center; /* centraliza textos internos */
+    gap: 26px; /* mais espaçamento entre linhas */
+  }
+
+  .profile__name {
+    font-size: 22px; /* antes era 42px */
+    line-height: 38px;
+  }
+
+  /* b) avatar não precisa mais do margin-right */
+  .profile__avatar {
+    margin: 0;
+  }
+
+  /* c) “nome + lápis” agora ocupam 100% e ficam centralizados */
+  .profile__info-header {
+    width: 100%;
+    justify-content: center; /* alinha o flex no centro */
+    gap: 10px;
+  }
+
+  /* d) lápis volta a ter largura fixa de 24px */
+  .profile__edit-button {
+    flex: 0 0 24px;
+  }
+
+  /* e) “+” ocupa toda a largura (botão de adicionar) */
+  .profile__add-button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* ----- Telinhas super-estreitas (até 380px) ----------- */
+@media (max-width: 380px) {
+  /* f) “profile__info-header” reduz gap entre nome e lápis */
+  .profile__info-header {
+    gap: 10px;
+    justify-content: center;
+  }
+}

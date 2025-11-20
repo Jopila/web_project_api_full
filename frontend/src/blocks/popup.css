@@ -1,0 +1,298 @@
+/* ===================================================================== *
+ *  BLOCO: Popup (janela modal genérica)                                 *
+ * ===================================================================== */
+.popup {
+  display: none; /* .popup_opened → flex (via JS) */
+  position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.popup_opened {
+  display: flex;
+}
+
+/* --------------------------------------------------------------------- *
+ *  Conteúdo branco padrão (formulários)                                 *
+ * ------------------------------------------------------------------- */
+.popup__container {
+  position: relative;
+  width: 430px;
+  max-width: 90%;
+  background: #fff;
+  padding: 34px 36px;
+  border-radius: 10px;
+}
+
+/* ---------- Título ------------------------------------------------- */
+.popup__title {
+  margin: 0 0 24px;
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000;
+}
+
+/* ---------- Botão X ------------------------------------------------ */
+.popup__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  background: url("../images/icon-close.png") center/contain no-repeat;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  /* Garante que o botão fique acima de imagens/conteúdos do popup */
+  z-index: 2;
+}
+.popup__close:hover {
+  opacity: 0.6;
+}
+
+/* ---------- Formulário interno ------------------------------------ */
+.form {
+  display: flex;
+  flex-direction: column;
+  /* gap removido — o espaçamento agora é controlado
+     individualmente com margin nos inputs e nos erros */
+}
+
+/* Fieldset padrão do formulário de avatar: sem borda/padding, como os demais */
+.form__set {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Cada input (exceto o primeiro) afasta‐se 30 px do campo anterior     */
+.form__input:not(:first-child) {
+  margin-top: 30px;
+}
+
+.form__input {
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  font-family: var(--font-main);
+  font-size: 14px;
+  padding: 0 0 13px;
+}
+
+/* ---------- Mensagens de erro ------------------------------------- */
+.form__input-error {
+  display: none;
+  font-size: 12px;
+  line-height: 15px;
+  color: #f00;
+  margin-top: 5px; /* aproxima o texto da linha de input */
+}
+
+.form__input-error_active {
+  display: block;
+}
+
+/* Linha vermelha quando inválido                                      */
+.form__input_type_error {
+  border-bottom: 2px solid #f00;
+}
+
+/* ---------- Botão submit ------------------------------------------ */
+.form__submit {
+  margin-top: 48px; /* mantém a distância em relação ao último campo */
+  height: 50px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.form__submit:not(:disabled):hover {
+  opacity: 0.8;
+}
+
+.form__submit_disabled {
+  opacity: 0.2;
+  cursor: default;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+/* =================================================================== *
+ *  POP-UP de imagem (popup_type_image)                                *
+ * ================================================================== */
+.popup__image-container {
+  background: none;
+  padding: 0;
+  width: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.popup__caption {
+  margin: 10px 0 0;
+  width: 100%;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  text-align: left;
+}
+
+.popup_type_image .popup__close {
+  top: -40px;
+  right: -40px;
+}
+
+/* ===========================
+   Popup de confirmação (Figma)
+   =========================== */
+
+/* container: só adiciono sombra e ajusto o padding inferior */
+.popup_type_confirm .popup__container {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15); /* Figma */
+  padding: 34px 36px 36px; /* mantém 430px; botão fica com 358px de largura útil */
+}
+
+/* título: gap exato para o botão */
+.popup_type_confirm .popup__title {
+  margin-bottom: 32px; /* Figma: ~32px de respiro até o botão */
+}
+
+/* botão “Sim” preto, 50px, ocupando a largura útil (358px) */
+.form_type_confirm .form__submit {
+  width: 100%; /* 430 - 2*36 = 358px */
+  height: 50px; /* já é 50px no base, reforçado aqui */
+  margin-top: 0; /* zera o 48px do base */
+  border-radius: 2px; /* Figma */
+  background: #000; /* Figma */
+  color: #fff;
+}
+
+/* ===========================
+   Popup: Atualizar avatar (Figma)
+   =========================== */
+
+.popup_type_avatar .popup__container {
+  width: 430px; /* 430 × 272 do Figma (a altura fica automática) */
+  padding: 34px 36px; /* casa com as medidas do Figma */
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  background: #fff;
+}
+
+.popup_type_avatar .popup__title {
+  margin: 0 0 24px; /* “Alterar a foto do perfil”/“Atualizar avatar” */
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000;
+}
+
+.popup_type_avatar .form__set {
+  margin: 0; /* sem espaçamentos extras em volta do fieldset */
+  padding: 0;
+  border: 0;
+}
+
+.popup_type_avatar .form__input {
+  width: 100%; /* 358px úteis (430 - 36 - 36), como no Figma */
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+}
+
+/* Placeholder preto (o Figma mostra texto “forte”, não acinzentado) */
+
+
+/* Botão já tem 50px no base; só garantimos o espaçamento desejado */
+.popup_type_avatar .form__submit {
+  margin-top: 48px; /* bate com o “Submit Button” do Figma */
+  height: 50px; /* 50px como especificado */
+  border-radius: 2px;
+}
+
+/* Avatar: distância entre título e campo */
+.popup_type_avatar .form .form__input:first-child {
+  margin-top: 32px;
+}
+
+/* ------------------------------------------------------------------- *
+ *  RESPONSIVIDADE                                                     *
+ * ----------------------------------------------------------------- */
+@media (max-width: 1279px) {
+  .popup__container {
+    width: 380px;
+    padding: 30px 32px;
+  }
+  .form__submit {
+    margin-top: 40px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 500px) {
+  .popup_type_image .popup__container {
+    width: 100%;
+    max-width: 80vw;
+    padding: 24px 20px;
+    border-radius: 8px;
+  }
+  .form__submit {
+    margin-top: 32px;
+    height: 45px;
+  }
+
+  .popup__close {
+    top: -60px;
+    right: 7px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .popup_type_image .popup__image {
+    max-height: 65vh;
+  }
+  .popup_type_image .popup__close {
+    top: -5px;
+    right: -10px;
+  }
+
+  .popup_type_avatar .popup__container {
+    width: 380px; /* acompanha o bloco base */
+    padding: 30px 32px;
+  }
+  .popup_type_avatar .form__submit {
+    height: 48px;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .popup__container {
+    max-width: 300px;
+    padding: 20px 16px;
+  }
+  .form__submit {
+    margin-top: 24px;
+    height: 42px;
+  }
+}

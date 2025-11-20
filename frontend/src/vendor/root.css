@@ -1,0 +1,8 @@
+/* ---------- Variáveis globais ------------------------------------- */
+:root {
+  --font-main: "Inter", arial, sans-serif;
+  --color-bg: #000;
+  --color-text: #fff;
+  --color-muted: #a0a0a0;
+  --color-divider: rgba(84, 84, 84, 0.7);
+}

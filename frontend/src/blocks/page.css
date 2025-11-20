@@ -1,0 +1,30 @@
+/* ---------- Base --------------------------------------------------- */
+.page {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Container de cada seção ------------------------------------------ */
+.page__section {
+  width: 100%;
+  max-width: 880px; /* largura desktop */
+  padding-inline: clamp(16px, 2vw, 20px); /* NOVO — adapta nas telas menores */
+  margin-inline: auto;
+  box-sizing: border-box; /* <— evita overflow horizontal no main */
+}
+
+.page__content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.page__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

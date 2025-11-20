@@ -1,0 +1,144 @@
+.auth {
+  max-width: 358px;
+  margin: 120px auto 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.auth__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+}
+
+.auth__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.auth__field {
+  display: block;
+}
+
+.auth__input {
+  width: 100%;
+  padding: 0 0 8px;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+}
+
+.auth__input::placeholder {
+  color: #cccccc;
+}
+
+.auth__input:focus {
+  outline: none;
+}
+
+.auth__underline {
+  display: block;
+  width: 100%;
+  height: 0;
+  border-bottom: 2px solid #cccccc;
+}
+
+.auth__field:focus-within .auth__underline {
+  border-color: #ffffff;
+}
+
+.auth__error {
+  margin: 0;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ff6b6b;
+}
+
+.auth__submit {
+  width: 100%;
+  height: 58px;
+  border-radius: 2px;
+  border: none;
+  background: #ffffff;
+  color: #000000;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.auth__submit:not(:disabled):hover,
+.auth__submit:not(:disabled):focus-visible {
+  opacity: 0.8;
+}
+
+.auth__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.auth__caption {
+  margin: 0;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-text);
+}
+
+.auth__link {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.auth__link:hover,
+.auth__link:focus-visible {
+  opacity: 0.7;
+}
+
+.auth__link:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 480px) {
+  .auth {
+    max-width: 260px;
+    margin: 124px auto 48px;
+    padding: 0 30px;
+    gap: 24px;
+  }
+
+  .auth__title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .auth__form {
+    gap: 20px;
+  }
+
+  .auth__submit {
+    height: 46px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .auth__caption {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
