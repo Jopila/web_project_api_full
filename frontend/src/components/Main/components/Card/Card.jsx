@@ -33,7 +33,7 @@ export default function Card({
   const isLiked = card?.isLiked ?? derivedIsLiked;
 
   // Contador binário (pedido do tutor)
-  const likeCount = Likes.length;
+  const likeCount = isLiked ? 1 : 0;
 
   const cardLikeButtonClassName = `card__like-button ${
     isLiked ? "card__like-button_is-active" : ""
