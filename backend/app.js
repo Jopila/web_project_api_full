@@ -13,11 +13,6 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const { NODE_ENV, JWT_SECRET } = process.env;
-
-if (NODE_ENV === "production" && !JWT_SECRET) {
-  throw new Error("JWT_SECRET é obrigatório em produção");
-}
 
 app.use(cors());
 app.use(express.json());
