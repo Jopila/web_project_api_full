@@ -53,7 +53,6 @@ export function authorize({ email, password }) {
 }
 
 export async function checkToken(token) {
-  console.log("valor de token", token);
   if (!token) {
     return Promise.reject(new Error("Token ausente."));
   }
