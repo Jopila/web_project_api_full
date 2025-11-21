@@ -155,8 +155,9 @@ export default function App() {
       ]);
 
       const normalizedUserData =
-        (userData && typeof userData === "object" ? userData.data ?? userData : {}) ||
-        {};
+        (userData && typeof userData === "object"
+          ? userData.data ?? userData
+          : {}) || {};
       const normalizedAuthProfile =
         authProfile && typeof authProfile === "object"
           ? authProfile.data ?? authProfile
@@ -195,11 +196,14 @@ export default function App() {
 
   const establishSession = useCallback(
     async (tokenValue, authProfile = null, { persistToken = true } = {}) => {
+      console.log(tokenValue, authProfile, persistToken);
       if (tokenValue && persistToken) {
         syncToken(tokenValue);
       }
+      api.setToken(tokenValue);
       setIsCheckingAuth(true);
       try {
+        console.log("valor de profile", authProfile);
         await loadInitialData(authProfile);
       } catch (error) {
         if (tokenValue && persistToken) {
@@ -215,11 +219,14 @@ export default function App() {
 
   const handleLogin = useCallback(
     async ({ email, password }) => {
+      console.log("login");
       setLoginError("");
       setIsSubmittingAuth(true);
       try {
         const response = await authorize({ email, password });
+        console.log("valor de response", response);
         const token = response?.token;
+        console.log(token);
         if (!token) {
           throw new Error("Token não recebido.");
         }

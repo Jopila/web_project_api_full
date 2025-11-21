@@ -23,11 +23,13 @@ class Api {
   }
 
   setToken(token) {
+    console.log("setToken", token);
     this._token = token || null;
   }
 
   /* ----- Usuario ----- */
   getUserInfo() {
+    console.log("getuserinfo", this._token);
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._composeHeaders(),
     }).then(this._handleResponse);

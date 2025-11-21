@@ -31,10 +31,9 @@ async function handleResponse(response) {
     data = await response.json();
   } catch (err) {
     // ignore JSON parsing errors, fallback to statusText
+    const message = parseErrorMessage(data, response);
+    throw new Error(message);
   }
-
-  const message = parseErrorMessage(data, response);
-  throw new Error(message);
 }
 
 export function register({ email, password }) {
@@ -53,7 +52,8 @@ export function authorize({ email, password }) {
   }).then(handleResponse);
 }
 
-export function checkToken(token) {
+export async function checkToken(token) {
+  console.log("valor de token", token);
   if (!token) {
     return Promise.reject(new Error("Token ausente."));
   }
