@@ -11,7 +11,7 @@ export default function Card({
   const { currentUser } = useContext(CurrentUserContext) ?? {};
   const userId = currentUser?._id ?? null;
 
-  const { name = "", link = "", likes } = card ?? {};
+  const { name = "", link = "", likes, owner } = card ?? {};
 
   // Deriva de likes *apenas se precisar*
   const derivedIsLiked = useMemo(() => {
@@ -58,12 +58,14 @@ export default function Card({
 
   return (
     <li className="card">
-      <button
-        className="card__delete-button"
-        type="button"
-        aria-label="Excluir"
-        onClick={handleDeleteClick}
-      />
+      {userId === owner && (
+        <button
+          className="card__delete-button"
+          type="button"
+          aria-label="Excluir"
+          onClick={handleDeleteClick}
+        />
+      )}
 
       <img
         className="card__image"

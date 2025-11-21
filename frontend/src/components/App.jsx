@@ -438,7 +438,7 @@ export default function App() {
     }),
     [currentUser, handleUpdateAvatar, handleUpdateUser]
   );
-
+  console.log("user", currentUser);
   let mainContent = null;
 
   if (currentRoute === "/signin") {
